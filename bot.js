@@ -3,6 +3,8 @@ import TelegramBot from "node-telegram-bot-api";
 import "dotenv/config";
 import { jokes, activeListeningPhrases } from "./variables.js";
 import express from "express";
+import cron from "node-cron";
+import { getWeather } from "./utils/getWeather.js";
 
 const port = process.env.PORT || 3000;
 
@@ -245,6 +247,55 @@ bot.on("message", (msg) => {
     bot.sendMessage(chatId, "Received your message");
 });
  */
+
+cron.schedule("0 9 * * *", async() => {
+    const firstName = "Анюткa";
+    const chatId = process.env.CHAT_ID;
+    const greetingMessage= "Доброго ранку, моя люба! Як спалось?"
+    const weather = await getWeather("Оберхаузен", "ua", process.env.KEY, firstName);
+    bot.sendMessage(
+        process.env.CHAT_ID,
+         `${greetingMessage} \n${weather}`   
+    );
+    console.log("Message sent");
+}
+);
+
+cron.schedule("0 9 * * *", async() => {
+    const firstName = "Євген";
+    const chatId = process.env.CHAT_ID_IEV;
+    const greetingMessage= "Доброго ранку, сонце! Як спалось?"
+    const weather = await getWeather("Оберхаузен", "ua", process.env.KEY, firstName);
+    bot.sendMessage(
+        chatId,
+         `${greetingMessage} \n${weather}`   
+    );
+    console.log("Message sent");
+}
+);
+cron.schedule("30 23 * * *", async() => {
+    const firstName = "Євген";
+    const chatId = process.env.CHAT_ID_IEV;
+    const message= `${firstName}, вже пізня година. Може спати? Що скажеш?`    
+    bot.sendMessage(
+        chatId,
+            message   
+    );
+    console.log("Message sent");
+}
+);
+cron.schedule("40 23 * * *", async() => {
+    const firstName = "Aннa";
+    const chatId = process.env.CHAT_ID;
+    const message= `${firstName}, вже пізня година. Може спати? Що скажеш?`    
+    bot.sendMessage(
+        chatId,
+            message   
+    );
+    console.log("Message sent");
+}
+);
+
 
 const app = express();
 app.use(express.json());
