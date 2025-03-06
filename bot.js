@@ -4,13 +4,25 @@ import "dotenv/config";
 import { jokes, activeListeningPhrases } from "./variables.js";
 import express from "express";
 
-/* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
-
-const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
-const url = process.env.APP_URL 
 const port = process.env.PORT;
 
-bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`);
+/* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
+
+/* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
+const url = process.env.APP_URL 
+
+
+bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`); */
+
+let bot;
+if (process.env.NODE_ENV === "production") {
+    bot = new TelegramBot(process.env.TELEGRAM_BOT);
+    bot.setWebHook(`${process.env.APP_URL}/bot${process.env.TELEGRAM_BOT}`);
+    console.log("production");
+} else {
+    bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true });
+    console.log("development");
+}
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
