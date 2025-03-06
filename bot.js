@@ -254,7 +254,7 @@ cron.schedule("0 9 * * *", async() => {
     const greetingMessage= "Доброго ранку, моя люба! Як спалось?"
     const weather = await getWeather("Оберхаузен", "ua", process.env.KEY, firstName);
     bot.sendMessage(
-        process.env.CHAT_ID,
+        chatId,
          `${greetingMessage} \n${weather}`   
     );
     console.log("Message sent");
@@ -273,7 +273,7 @@ cron.schedule("0 9 * * *", async() => {
     console.log("Message sent");
 }
 );
-cron.schedule("30 23 * * *", async() => {
+cron.schedule("40 23 * * *", async() => {
     const firstName = "Євген";
     const chatId = process.env.CHAT_ID_IEV;
     const message= `${firstName}, вже пізня година. Може спати? Що скажеш?`    
@@ -281,8 +281,8 @@ cron.schedule("30 23 * * *", async() => {
         chatId,
             message   
     );
-    console.log("Message sent");
-}
+    console.log("Message sent to ", firstName);
+} 
 );
 cron.schedule("40 23 * * *", async() => {
     const firstName = "Aннa";
@@ -292,7 +292,7 @@ cron.schedule("40 23 * * *", async() => {
         chatId,
             message   
     );
-    console.log("Message sent");
+    console.log("Message sent to ", firstName);
 }
 );
 
