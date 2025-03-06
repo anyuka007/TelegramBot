@@ -2,8 +2,15 @@
 import TelegramBot from "node-telegram-bot-api";
 import "dotenv/config";
 import { jokes, activeListeningPhrases } from "./variables.js";
+import express from "express";
 
-const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true });
+/* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
+
+const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
+const url = process.env.APP_URL 
+const port = process.env.PORT;
+
+bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`);
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
@@ -226,3 +233,16 @@ bot.on("message", (msg) => {
     bot.sendMessage(chatId, "Received your message");
 });
  */
+
+const app = express();
+app.use(express.json());
+
+app.post(`/bot${process.env.TELEGRAM_BOT}`, (req, res) => {
+    bot.processUpdate(req.body);
+    res.sendStatus(200);
+}
+);
+
+app.listen(port, () => {
+    console.log(`Express server is listening on ${port}`);
+});
