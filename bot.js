@@ -4,7 +4,7 @@ import "dotenv/config";
 import { jokes, activeListeningPhrases } from "./variables.js";
 import express from "express";
 
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
 /* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
