@@ -12,10 +12,10 @@ const port = process.env.PORT || 3000;
 
 /* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
 const url = process.env.APP_URL 
+bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`);*/
 
-
-bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`); */
-
+ 
+// ** Initializing the Telegram Bot Instance based on the environment in which the application is running
 let bot;
 if (process.env.NODE_ENV === "production") {
     bot = new TelegramBot(process.env.TELEGRAM_BOT);
@@ -27,21 +27,54 @@ if (process.env.NODE_ENV === "production") {
 }
 
 bot.onText(/\/start/, (msg) => {
+    //console.log("msg: ", msg);
     const chatId = msg.chat.id;
-    bot.sendMessage(chatId, "Привіт! Розпочнемо?");
+    const language = msg.from.language_code; // &lang=${language};
+    //console.log("language: ", language);
+    const firstName = msg.from.first_name;
+    let message;
+    switch (language) {
+        case "uk":
+            message = `Привіт, ${firstName}! Я бот, який може показати тобі погоду. Напиши <погода> та <назву міста>, де ти хочеш дізнатися погоду. Наприклад, <погода Львів>. Якщо ти хочеш почути жарт, напиши /joke. Аби привітатись, напиши <привіт>. Якщо ти хочеш закінчити спілкування, напиши <бувай>.`;
+            break;
+        case "de":  
+            message = `Hallo, ${firstName}! Ich bin ein Bot, der dir das Wetter anzeigen kann. Schreibe Wetter und den Namen der Stadt, über die du das Wetter erfahren möchtest. Zum Beispiel, Wetter Berlin. Wenn du einen Witz hören möchtest, schreibe /joke. Wenn du ein Gespräch beginnen möchtest, schreibe Hallo. Wenn du das Gespräch beenden möchtest, schreibe Auf Wiedersehen.`;
+            break;
+        default:
+            message = `Hello, ${firstName}! I'm a bot that can show you the weather. Write weather and the name of the city you want to know the weather. For example, weather London. If you want to hear a joke, write /joke. If you want to start a conversation, write hello. If you want to end the conversation, write bye.`;
+            break;
+    }
+    bot.sendMessage(chatId, message);
+    console.log("Start message sent to ", firstName);
 });
 
 bot.on("message", (msg) => {
-    const hi = "привіт";
-    if (msg.text.toString().toLowerCase().indexOf(hi) === 0) {
+    const hiUa = "привіт";
+    const hiEn = "hi";
+    const hiDe = "hallo";
+    const byeUa = "бувай";
+    const byeEn = "bye";
+    const byeDe = "tschüss";
+
+    const messageText = msg.text.toString().toLowerCase();
+
+    if (messageText.indexOf(hiUa) === 0) {
         bot.sendMessage(msg.chat.id, "Привіт, мій любий друже");
+    } else if (messageText.indexOf(hiEn) === 0) {
+        bot.sendMessage(msg.chat.id, "Hello, my dear friend");
+    } else if (messageText.indexOf(hiDe) === 0) {
+        bot.sendMessage(msg.chat.id, "Hallo, mein lieber Freund");
     }
 
-    const bye = "бувай";
-    if (msg.text.toString().toLowerCase().indexOf(bye) === 0) {
+    if (messageText.indexOf(byeUa) === 0) {
         bot.sendMessage(msg.chat.id, "До зустрічі");
+    } else if (messageText.indexOf(byeEn) === 0) {
+        bot.sendMessage(msg.chat.id, "Goodbye");
+    } else if (messageText.indexOf(byeDe) === 0) {
+        bot.sendMessage(msg.chat.id, "Auf Wiedersehen");
     }
 });
+
 bot.onText(/\/joke/, (msg) => {
     // 'msg' is the received Message from Telegram
     // console.log("msg: ", msg);
@@ -52,149 +85,56 @@ bot.onText(/\/joke/, (msg) => {
 
 bot.onText(/\/weather (.+)/, (msg, match) => {
     // 'msg' is the received Message from Telegram
-    // 'match' is the result of executing the regexp above on the text content
-    // of the message
-    console.log("msg: ", msg);
+    // 'match' is the result of executing the regexp above on the text content of the message
+    //console.log("msg: ", msg);
     const chatId = msg.chat.id;
-    const city = match[1]; // the captured "whatever"
-    const language = msg.from.language_code; // &lang=${language}
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.KEY}&units=metric&lang=${language}`;
+    const city = match[1]; // the captured "whatever" 
+    const language = msg.from.language_code; // &lang=${language};
+    const firstName = msg.from.first_name;
 
     async function fetchData() {
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log("data: ", data);
-            const cityNameCountry = `${data.name}, ${data.sys.country}`;
-            let temperature = data.main.temp.toFixed();
-            //let celsius = Math.round(temperature - 273);
-            let description = data.weather[0].description;
-            const message = `${msg.from.first_name}, it is now ${temperature}°C, ${description} in ${cityNameCountry}`;
-            bot.sendMessage(chatId, message);
+            const message = await getWeather(city, language, firstName);
+            await bot.sendMessage(chatId, message);
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error("Error fetching weather data:", error);
             const fetchErrorMessage = "I didn't find such a city";
             bot.sendMessage(chatId, fetchErrorMessage);
         }
     }
-
+    
     fetchData();
-    // send back the matched "whatever" to the chat
 });
 
 bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content
     // of the message
-    console.log("msg: ", msg);
+    // console.log("msg: ", msg);
     const chatId = msg.chat.id;
     const city = match[2]; // the captured "city"
-    console.log("match: ", match);
-    console.log("match[1]: ", match[1]);
+    // console.log("match: ", match);
+    // console.log("match[1]: ", match[1]);
     const language =
         match[1].toLowerCase() === "погода"
-            ? "ua"
+            ? "uk"
             : match[1].toLowerCase() === "wetter"
             ? "de"
             : "en"; // &lang=${language} msg.from.language_code;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.KEY}&units=metric&lang=${language}`;
+    const firstName = msg.from.first_name;
 
     async function fetchData() {
         try {
-            const response = await fetch(url);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
-            console.log("data: ", data);
-            const currentTimezoneOffset = new Date().getTimezoneOffset();
-            const searchTimezone = data.timezone / 60; // in sec
-            const differenceTimezone = searchTimezone - -currentTimezoneOffset;
-            console.log("currentTimezoneOffset: ", currentTimezoneOffset);
-            console.log("searchTimezone: ", searchTimezone);
-            console.log("differenceTimezone", differenceTimezone);
-            console.log(
-                "sunrise searched Timezone:",
-                new Date(
-                    data.sys.sunrise * 1000 + differenceTimezone * 60 * 1000
-                ).toTimeString()
-            );
-            console.log(
-                "time here: ",
-                new Date().toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    hour12: false,
-                })
-            );
-            let currentTime = new Date();
-            let newTime = new Date(
-                currentTime.getTime() + differenceTimezone * 60 * 1000
-            );
-            const timeSearchedCity = newTime.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                //hour12: false,
-                hourCycle: "h23",
-            });
-            console.log("time in searched city: ", timeSearchedCity);
-            const sunrise = new Date(
-                data.sys.sunrise * 1000 + differenceTimezone * 60 * 1000
-            ).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-            });
-            const sunset = new Date(
-                data.sys.sunset * 1000 + differenceTimezone * 60 * 1000
-            ).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-                hour12: false,
-            });
-
-            const cityNameCountry = `${data.name}, ${data.sys.country}`;
-            let temperature = data.main.temp.toFixed();
-            //let celsius = Math.round(temperature - 273);
-            let description = data.weather[0].description;
-            const message =
-                language === "ua"
-                    ? `${
-                          msg.from.first_name
-                      }, зараз ${temperature}°C, ${description} у ${cityNameCountry}. Схід сонечка о ${sunrise}, а захід о ${sunset}. Зараз у ${
-                          data.name
-                      } ${timeSearchedCity}, різниця у часі становить ${
-                          differenceTimezone / 60
-                      } годин(и/у).`
-                    : language === "de"
-                    ? `${
-                          msg.from.first_name
-                      }, es sind jetzt ${temperature}°C, ${description} in ${cityNameCountry}. Sonnenaufgang um ${sunrise} Uhr, Sonnenuntergang um ${sunset} Uhr. In ${
-                          data.name
-                      } ist es jetzt ${timeSearchedCity} Uhr, der Zeitunterschied beträgt ${
-                          differenceTimezone / 60
-                      } Stunde(n).`
-                    : `${
-                          msg.from.first_name
-                      }, it is now ${temperature}°C, ${description} in ${cityNameCountry}. Sunrise at ${sunrise}, sunset at ${sunset}. It is ${timeSearchedCity} in ${
-                          data.name
-                      } now, the time difference is ${
-                          differenceTimezone / 60
-                      } hour(s).`;
-            bot.sendMessage(chatId, message);
+            const message = await getWeather(city, language, firstName);
+            await bot.sendMessage(chatId, message);
         } catch (error) {
-            console.error("Error fetching data:", error);
+            console.error("Error fetching weather data:", error);
             const fetchErrorMessage = "I didn't find such a city";
             bot.sendMessage(chatId, fetchErrorMessage);
         }
     }
-
+    
     fetchData();
-
-    // send back the matched "whatever" to the chat
 });
 
 bot.on("channel_post", (msg) => {
@@ -252,7 +192,7 @@ cron.schedule("0 9 * * *", async() => {
     const firstName = "Анюткa";
     const chatId = process.env.CHAT_ID;
     const greetingMessage= "Доброго ранку, моя люба! Як спалось?"
-    const weather = await getWeather("Оберхаузен", "ua", process.env.KEY, firstName);
+    const weather = await getWeather("Оберхаузен", "uk",  firstName);
     bot.sendMessage(
         chatId,
          `${greetingMessage} \n${weather}`   
@@ -265,7 +205,7 @@ cron.schedule("0 9 * * *", async() => {
     const firstName = "Євген";
     const chatId = process.env.CHAT_ID_IEV;
     const greetingMessage= "Доброго ранку, сонце! Як спалось?"
-    const weather = await getWeather("Оберхаузен", "ua", process.env.KEY, firstName);
+    const weather = await getWeather("Оберхаузен", "uk", firstName);
     bot.sendMessage(
         chatId,
          `${greetingMessage} \n${weather}`   
