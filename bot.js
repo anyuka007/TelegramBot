@@ -10,13 +10,13 @@ const port = process.env.PORT || 3000;
 
 /* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
-/* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
+const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
 const url = process.env.APP_URL 
-bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`);*/
+bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`);
 
  
 // ** Initializing the Telegram Bot Instance based on the environment in which the application is running
-let bot;
+/* let bot;
 if (process.env.NODE_ENV === "production") {
     bot = new TelegramBot(process.env.TELEGRAM_BOT);
     bot.setWebHook(`${process.env.APP_URL}/bot${process.env.TELEGRAM_BOT}`);
@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
     bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true });
     console.log("development");
-}
+} */
 
 bot.onText(/\/start/, (msg) => {
     //console.log("msg: ", msg);
