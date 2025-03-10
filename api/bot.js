@@ -14,7 +14,7 @@ bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`); */
 
  
 // ** Initializing the Telegram Bot Instance based on the environment in which the application is running
-let bot;
+export let bot;
 if (process.env.NODE_ENV === "production") {
     bot = new TelegramBot(process.env.TELEGRAM_BOT);
     bot.setWebHook(`${process.env.APP_URL}/bot${process.env.TELEGRAM_BOT}`);
