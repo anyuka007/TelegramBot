@@ -6,13 +6,11 @@ import express from "express";
 import cron from "node-cron";
 import { getWeather } from "./utils/getWeather.js";
 
-const port = process.env.PORT || 3000;
+export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true });
 
-/* const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
-
-const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
+/* export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { webHook: true });
 const url = process.env.APP_URL 
-bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`);
+bot.setWebHook(`${url}/bot${process.env.TELEGRAM_BOT}`); */
 
  
 // ** Initializing the Telegram Bot Instance based on the environment in which the application is running
@@ -239,15 +237,3 @@ cron.schedule("40 23 * * *", async() => {
 );
 
 
-const app = express();
-app.use(express.json());
-
-app.post(`/bot${process.env.TELEGRAM_BOT}`, (req, res) => {
-    bot.processUpdate(req.body);
-    res.sendStatus(200);
-}
-);
-
-app.listen(port, () => {
-    console.log(`Express server is listening on ${port}`);
-});

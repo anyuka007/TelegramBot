@@ -26,7 +26,7 @@
   "scripts": {
     "dev": "",
     "test": "",
-    "start": "node bot.js"
+    "start": "node api/index.js"
   },
   "devDependencies": {
     "@types/node-telegram-bot-api": "^0.64.7"
