@@ -96,6 +96,7 @@ bot.onText(/\/weather (.+)/, (msg, match) => {
         try {
             const message = await getWeather(city, language, firstName);
             await bot.sendMessage(chatId, message);
+            console.log(`Message about the weather in ${city} sent to ${firstName}`);
         } catch (error) {
             console.error("Error fetching weather data:", error);
             const fetchErrorMessage = "I didn't find such a city";
@@ -127,6 +128,7 @@ bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) => {
         try {
             const message = await getWeather(city, language, firstName);
             await bot.sendMessage(chatId, message);
+            console.log(`Message about the weather in ${city} sent to ${firstName}`);
         } catch (error) {
             console.error("Error fetching weather data:", error);
             const fetchErrorMessage = "I didn't find such a city";
