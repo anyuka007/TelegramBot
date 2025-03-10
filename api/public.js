@@ -1,6 +1,6 @@
 import { bot } from "./bot.js";
 
-module.exports = async (request, response) => {
+export default async (request, response) => {
     try {
         const { body } = request;
 
