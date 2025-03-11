@@ -105,21 +105,21 @@ export const botInstance = () => {
         try {
           console.log(`retrieving weather in ${city}`);
           const message = await getWeather(city, language, firstName);
-          bot.sendMessage(chatId, message);
+          await bot.sendMessage(chatId, message);
           console.log(
             `Message about the weather in ${city} sent to ${firstName}`
           );
         } catch (error) {
           console.error("Error fetching weather data:", error);
           const fetchErrorMessage = "I didn't find such a city";
-          bot.sendMessage(chatId, fetchErrorMessage);
+          await bot.sendMessage(chatId, fetchErrorMessage);
         }
       }
 
       await fetchData();
     });
 
-    bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) => {
+    bot.onText(/(погода|weather|wetter) (.+)/i, async (msg, match) => {
       // 'msg' is the received Message from Telegram
       // 'match' is the result of executing the regexp above on the text content
       // of the message
@@ -146,11 +146,11 @@ export const botInstance = () => {
         } catch (error) {
           console.error("Error fetching weather data:", error);
           const fetchErrorMessage = "I didn't find such a city";
-          bot.sendMessage(chatId, fetchErrorMessage);
+          await bot.sendMessage(chatId, fetchErrorMessage);
         }
       }
 
-      fetchData();
+      await fetchData();
     });
 
     bot.on("channel_post", (msg) => {
