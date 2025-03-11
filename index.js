@@ -12,7 +12,7 @@ app.get("/favicon.ico", (req, res) => {
 });
 
 app.post(`/bot${process.env.TELEGRAM_BOT}`, async (req, res) => {
-  console.log("received request from TG:", req.body);
+  console.log("received request from TG:", req.body.message.text);
   await bot.processUpdate(req.body);
   res.sendStatus(200);
 });
