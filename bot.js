@@ -224,7 +224,7 @@ cron.schedule("40 23 * * *", async() => {
     console.log("Message sent to ", firstName);
 } 
 );
-cron.schedule("05 16 * * *", async() => {
+cron.schedule("15 16 * * *", async() => {
     const firstName = "Aннa";
     const chatId = process.env.CHAT_ID;
     const message= `${firstName}, вже пізня година. Може спати? Що скажеш?`    

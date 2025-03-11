@@ -9,9 +9,8 @@ app.use(express.json());
 app.get("/favicon.ico", (req, res) => { res.status(204).end(); });
 
 app.post(`/bot${process.env.TELEGRAM_BOT}`, (req, res) => {
-    res.sendStatus(200);
     bot.processUpdate(req.body);
-    
+    res.sendStatus(200);
 }
 );
 
