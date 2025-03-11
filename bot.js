@@ -92,6 +92,7 @@ bot.onText(/\/weather (.+)/, async (msg, match) => {
 
     async function fetchData() {
         try {
+            console.log(`retrieving weather in ${city}`);
             const message = await getWeather(city, language, firstName);
             await bot.sendMessage(chatId, message);
             console.log(`Message about the weather in ${city} sent to ${firstName}`);

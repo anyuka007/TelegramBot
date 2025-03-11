@@ -9,6 +9,7 @@ app.use(express.json());
 app.get("/favicon.ico", (req, res) => { res.status(204).end(); });
 
 app.post(`/bot${process.env.TELEGRAM_BOT}`, async (req, res) => {
+    console.log('received request from TG:', req.body);
     await bot.processUpdate(req.body);
     res.sendStatus(200);
 }
