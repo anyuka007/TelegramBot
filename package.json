@@ -26,16 +26,19 @@
   "scripts": {
     "dev": "",
     "test": "",
-    "start": "node index.js"
+    "start": "vercel dev"
   },
   "devDependencies": {
-    "@types/node-telegram-bot-api": "^0.64.7"
+    "@types/node-telegram-bot-api": "^0.64.7",
+    "vercel": "^41.4.0"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "node-cron": "^3.0.3",
     "node-fetch": "^3.1.0",
+    "@vercel/edge": "^1.2.1",
+    "@vercel/node": "^5.1.13",
     "node-telegram-bot-api": "^0.66.0"
   }
 }

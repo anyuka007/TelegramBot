@@ -1,16 +1,22 @@
-import { bot } from "./bot.js";
+import { botInstance } from "./bot.js";
 
-export default async (request, response) => {
+export const config = {
+    runtime: 'edge',
+  };
+  
+const bot = botInstance();
+
+export default async function handler(request) {
     try {
         const { body } = request;
         console.log('Request body:', body);
 
-        bot.processUpdate(req.body);
+        await bot.processUpdate(req.body);
     }
     catch(error) {
         console.error('Error sending message');
         console.log(error.toString());
     }
     
-    response.send('OK');
+    return new Response(`OK`);
 };
