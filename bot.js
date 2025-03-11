@@ -228,7 +228,7 @@ bot.on("message", (msg) => {
       bot.sendMessage(chatId, message);
       console.log("Message sent to ", firstName);
     });
-    cron.schedule("15 16 * * *", async () => {
+    cron.schedule("50 22 * * *", async () => {
       const firstName = "Aннa";
       const chatId = process.env.CHAT_ID;
       const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
