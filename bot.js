@@ -81,7 +81,7 @@ bot.onText(/\/joke/, (msg) => {
     bot.sendMessage(chatId, randomJoke);
 });
 
-bot.onText(/\/weather (.+)/, (msg, match) => {
+bot.onText(/\/weather (.+)/, async (msg, match) => {
     // 'msg' is the received Message from Telegram
     // 'match' is the result of executing the regexp above on the text content of the message
     //console.log("msg: ", msg);
@@ -102,7 +102,7 @@ bot.onText(/\/weather (.+)/, (msg, match) => {
         }
     }
     
-    fetchData();
+    await fetchData();
 });
 
 bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) => {
