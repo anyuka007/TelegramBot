@@ -5,6 +5,7 @@ import { jokes, activeListeningPhrases } from "./variables.js";
 import express from "express";
 import cron from "node-cron";
 import { getWeather } from "./utils/getWeather.js";
+import { pingServer } from "./utils/pingServer.js";
 
 /* export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
@@ -204,7 +205,8 @@ bot.on("message", (msg) => {
 });
  */
 
-    cron.schedule("0 9 * * *", async () => {
+    cron.schedule("10 10 * * *", async () => {
+        await pingServer()
       const firstName = "Анюткa";
       const chatId = process.env.CHAT_ID;
       const greetingMessage = "Доброго ранку, моя люба! Як спалось?";
