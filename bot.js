@@ -54,7 +54,7 @@ export const botInstance = () => {
           message = `Hello, <b>${firstName}</b>! I'm a bot that can show you the weather. Write <i>weather</i> and the <i>name of the city</i> you want to know the weather. For example, <i>weather London</i>. If you want to hear a joke, write <i>/joke</i>. If you want to start a conversation, write <i>hi</i>. If you want to end the conversation, write <i>bye</i>.`;
           break;
       }
-      bot.sendMessage(chatId, message);
+      bot.sendMessage(chatId, message, { parse_mode: "HTML" });
       console.log("Start message sent to ", firstName);
     });
 
@@ -69,11 +69,11 @@ export const botInstance = () => {
       const messageText = msg.text.toString().toLowerCase();
 
       if (messageText.indexOf(hiUa) === 0) {
-        bot.sendMessage(msg.chat.id, "Привіт, мій любий друже");
+        bot.sendMessage(msg.chat.id, "Привіт, мій любий друже", { parse_mode: "HTML" });
       } else if (messageText.indexOf(hiEn) === 0) {
-        bot.sendMessage(msg.chat.id, "Hello, my dear friend");
+        bot.sendMessage(msg.chat.id, "Hello, my dear friend", { parse_mode: "HTML" });
       } else if (messageText.indexOf(hiDe) === 0) {
-        bot.sendMessage(msg.chat.id, "Hallo, mein lieber Freund");
+        bot.sendMessage(msg.chat.id, "Hallo, mein lieber Freund", { parse_mode: "HTML" });
       }
 
       if (messageText.indexOf(byeUa) === 0) {
