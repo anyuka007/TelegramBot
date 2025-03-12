@@ -45,13 +45,13 @@ export const botInstance = () => {
       let message;
       switch (language) {
         case "uk":
-          message = `Привіт, ${firstName}! Я бот, який може показати тобі погоду. Напиши <погода> та <назву міста>, де ти хочеш дізнатися погоду. Наприклад, <погода Львів>. Якщо ти хочеш почути жарт, напиши /joke. Аби привітатись, напиши <привіт>. Якщо ти хочеш закінчити спілкування, напиши <бувай>.`;
+          message = `Привіт, <b>${firstName}</b>! Я бот, який може показати тобі погоду. Напиши <i>погода</i> та <i>назву міста</i>, де ти хочеш дізнатися погоду. Наприклад, <i>погода Львів</i>. Якщо ти хочеш почути жарт, напиши <i>/joke</i>. Аби привітатись, напиши <i>привіт</i>. Якщо ти хочеш закінчити спілкування, напиши <i>бувай</i>.`;
           break;
         case "de":
-          message = `Hallo, ${firstName}! Ich bin ein Bot, der dir das Wetter anzeigen kann. Schreibe Wetter und den Namen der Stadt, über die du das Wetter erfahren möchtest. Zum Beispiel, Wetter Berlin. Wenn du einen Witz hören möchtest, schreibe /joke. Wenn du ein Gespräch beginnen möchtest, schreibe Hallo. Wenn du das Gespräch beenden möchtest, schreibe Auf Wiedersehen.`;
+          message = `Hallo, <b>${firstName}</b>! Ich bin ein Bot, der dir das Wetter anzeigen kann. Schreibe <i>Wetter</i> und den <i>Namen der Stadt</i>, über die du das Wetter erfahren möchtest. Zum Beispiel, <i>Wetter Berlin</i>. Wenn du einen Witz hören möchtest, schreibe <i>/joke</i>. Wenn du ein Gespräch beginnen möchtest, schreibe <i>hallo</i>. Wenn du das Gespräch beenden möchtest, schreibe <i>tschüss</i>.`;
           break;
         default:
-          message = `Hello, ${firstName}! I'm a bot that can show you the weather. Write weather and the name of the city you want to know the weather. For example, weather London. If you want to hear a joke, write /joke. If you want to start a conversation, write hello. If you want to end the conversation, write bye.`;
+          message = `Hello, <b>${firstName}</b>! I'm a bot that can show you the weather. Write <i>weather</i> and the <i>name of the city</i> you want to know the weather. For example, <i>weather London</i>. If you want to hear a joke, write <i>/joke</i>. If you want to start a conversation, write <i>hi</i>. If you want to end the conversation, write <i>bye</i>.`;
           break;
       }
       bot.sendMessage(chatId, message);
