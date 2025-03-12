@@ -77,11 +77,11 @@ export const botInstance = () => {
       }
 
       if (messageText.indexOf(byeUa) === 0) {
-        bot.sendMessage(msg.chat.id, "До зустрічі");
+        bot.sendMessage(msg.chat.id, "До зустрічі", { parse_mode: "HTML" });
       } else if (messageText.indexOf(byeEn) === 0) {
-        bot.sendMessage(msg.chat.id, "Goodbye");
+        bot.sendMessage(msg.chat.id, "Goodbye", { parse_mode: "HTML" });
       } else if (messageText.indexOf(byeDe) === 0) {
-        bot.sendMessage(msg.chat.id, "Auf Wiedersehen");
+        bot.sendMessage(msg.chat.id, "Auf Wiedersehen", { parse_mode: "HTML" });
       }
     });
 
