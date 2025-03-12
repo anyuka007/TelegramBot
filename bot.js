@@ -205,7 +205,7 @@ bot.on("message", (msg) => {
 });
  */
 
-    cron.schedule("49 9 * * *", async () => {
+    cron.schedule("3 11 * * *", async () => {
       await pingServer()
       const firstName = "Анюткa";
       const chatId = process.env.CHAT_ID;
@@ -213,7 +213,9 @@ bot.on("message", (msg) => {
       const weather = await getWeather("Оберхаузен", "uk", firstName);
       bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
       console.log("Message sent");
-    });
+    }, {
+        timezone: "Europe/Berlin"
+      });
 
     cron.schedule("0 9 * * *", async () => {
       const firstName = "Євген";

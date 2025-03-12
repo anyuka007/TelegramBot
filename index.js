@@ -11,6 +11,10 @@ app.get("/favicon.ico", (req, res) => {
   res.status(204).end();
 });
 
+app.get("/ping", (req, res) => {
+    res.send("pong");
+  });
+
 app.post(`/bot${process.env.TELEGRAM_BOT}`, async (req, res) => {
   console.log("received request from TG:", req.body.message.text);
   await bot.processUpdate(req.body);
