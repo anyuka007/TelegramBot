@@ -205,8 +205,8 @@ bot.on("message", (msg) => {
 });
  */
 
-    cron.schedule("27 9 * * *", async () => {
-        await pingServer()
+    cron.schedule("49 9 * * *", async () => {
+      await pingServer()
       const firstName = "Анюткa";
       const chatId = process.env.CHAT_ID;
       const greetingMessage = "Доброго ранку, моя люба! Як спалось?";
