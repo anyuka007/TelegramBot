@@ -9,6 +9,9 @@ import { pingServer } from "./utils/pingServer.js";
 import { greetingMessage } from "./utils/greetingMessage.js";
 import { startHandler } from "./handlers/startHandler.js";
 import { messageHandler } from "./handlers/messageHandler.js";
+import { greetingMessage } from "./utils/greetingMessage.js";
+import { startHandler } from "./handlers/startHandler.js";
+import { messageHandler } from "./handlers/messageHandler.js";
 
 /* export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
