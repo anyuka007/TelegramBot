@@ -7,6 +7,7 @@ import { getWeather } from "./utils/getWeather.js";
 import { pingServer } from "./utils/pingServer.js";
 import { startHandler } from "./handlers/startHandler.js";
 import { messageHandler } from "./handlers/messageHandler.js";
+import { jokeHandler } from "./handlers/jokeHandler.js";
 
 /* export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
@@ -41,13 +42,7 @@ export const botInstance = () => {
 
     bot.on("message", (msg) => messageHandler(bot, msg));
 
-    bot.onText(/\/joke/, (msg) => {
-      // 'msg' is the received Message from Telegram
-      // console.log("msg: ", msg);
-      const chatId = msg.chat.id;
-      const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
-      bot.sendMessage(chatId, randomJoke);
-    });
+    bot.onText(/\/joke/, (msg) => jokeHandler(bot, msg));
 
     bot.onText(/\/weather (.+)/, async (msg, match) => {
       // 'msg' is the received Message from Telegram
