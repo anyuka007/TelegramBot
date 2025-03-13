@@ -2,14 +2,9 @@
 import TelegramBot from "node-telegram-bot-api";
 import "dotenv/config";
 import { jokes, activeListeningPhrases } from "./variables.js";
-import express from "express";
 import cron from "node-cron";
 import { getWeather } from "./utils/getWeather.js";
 import { pingServer } from "./utils/pingServer.js";
-import { greetingMessage } from "./utils/greetingMessage.js";
-import { startHandler } from "./handlers/startHandler.js";
-import { messageHandler } from "./handlers/messageHandler.js";
-import { greetingMessage } from "./utils/greetingMessage.js";
 import { startHandler } from "./handlers/startHandler.js";
 import { messageHandler } from "./handlers/messageHandler.js";
 
