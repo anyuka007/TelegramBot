@@ -24,7 +24,55 @@ export const activeListeningPhrases = [
     "Das ist unerwartet!",
 ];
 
-/* export const jokes = [
+export const jokes = {
+    en: [
+    "Why don't scientists trust atoms? Because they make up everything.",
+    "Why did the scarecrow win an award? Because he was outstanding in his field.",
+    "Why don't skeletons fight each other? They don't have the guts.",
+    "What do you call fake spaghetti? An impasta.",
+    "Why did the bicycle fall over? Because it was two-tired.",
+    "What do you call cheese that isn't yours? Nacho cheese.",
+    "Why can't you give Elsa a balloon? Because she will let it go.",
+    "What do you get when you cross a snowman and a vampire? Frostbite.",
+    "Why did the math book look sad? Because it had too many problems.",
+    "Why was the math lecture so long? The professor kept going off on a tangent.",
+    "Why don't programmers like nature? It has too many bugs.",
+    "Why do cows wear bells? Because their horns don't work.",
+    "What do you call a bear with no teeth? A gummy bear.",
+    "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+    "Why don't some couples go to the gym? Because some relationships don't work out.",
+    "Why did the tomato turn red? Because it saw the salad dressing.",
+    "Why did the computer go to the doctor? Because it had a virus.",
+    "Why was the broom late? It swept in.",
+    "Why did the chicken join a band? Because it had the drumsticks.",
+    "Why don't oysters donate to charity? Because they are shellfish.",
+    "Why did the scarecrow become a successful neurosurgeon? Because he was outstanding in his field.",
+    "Why did the coffee file a police report? It got mugged.",
+    "Why did the cookie go to the hospital? Because it felt crummy.",
+    "Why did the man put his money in the blender? He wanted to make liquid assets.",
+    "Why don't seagulls fly over the bay? Because then they'd be bagels.",
+    "Why did the banana go to the doctor? Because it wasn't peeling well.",
+    "Why did the golfer bring an extra pair of pants? In case he got a hole in one.",
+    "Why did the bicycle fall over? Because it was two-tired.",
+    "Why did the tomato turn red? Because it saw the salad dressing.",
+    "Why did the scarecrow win an award? Because he was outstanding in his field.",
+    "Why did the math book look sad? Because it had too many problems.",
+    "Why don't skeletons fight each other? They don't have the guts.",
+    "Why don't scientists trust atoms? Because they make up everything.",
+    "Why did the scarecrow become a successful neurosurgeon? Because he was outstanding in his field.",
+    "Why did the coffee file a police report? It got mugged.",
+    "Why did the cookie go to the hospital? Because it felt crummy.",
+    "Why did the man put his money in the blender? He wanted to make liquid assets.",
+    "Why don't seagulls fly over the bay? Because then they'd be bagels.",
+    "Why did the banana go to the doctor? Because it wasn't peeling well.",
+    "Why did the golfer bring an extra pair of pants? In case he got a hole in one.",
+    "Why did the bicycle fall over? Because it was two-tired.",
+    "Why did the tomato turn red? Because it saw the salad dressing.",
+    "Why did the scarecrow win an award? Because he was outstanding in his field.",
+    "Why did the math book look sad? Because it had too many problems.",
+    "Why don't skeletons fight each other? They don't have the guts."
+], 
+    uk: [
     "Чому вчителі не йдуть у відпустку на Місяць? Бо на Місяці немає атмосфери!",
     "Чому програмісти не ходять у спортзал? Вони бояться зависнути на тренажерах!",
     "Якщо дерево впаде в лісі, і ніхто цього не побачить, чи потрібно йому надсилати запит на підтримку?",
@@ -72,9 +120,8 @@ export const activeListeningPhrases = [
     "Що робить черепаха, коли бачить дорогу? Вона завжди планує свій маршрут заздалегідь!",
     "Чому карасі завжди такі спокійні? Вони знають, що вода – їхня стихія!",
     "Що робить місяць, коли сонце заходить? Він виходить на свою нічну прогулянку!",
-];
- */
-export const jokes = [
+],
+    de: [
     "Warum können Geister so schlecht lügen? Weil man durch sie hindurchsehen kann.",
     "Wie nennt man einen Bumerang, der nicht zurückkommt? Einen Stock.",
     "Warum haben Geheimagenten immer einen Regenschirm? Weil es immer einen Tropfen gibt.",
@@ -124,4 +171,4 @@ export const jokes = [
     "Warum können Geister keine Briefe schreiben? Weil sie keinen Stift halten können.",
     "Was ist rot und schlecht für die Zähne? Ein Backstein.",
     "Warum haben Geister keinen Spaß? Weil sie immer so ernst sind.",
-];
+]}

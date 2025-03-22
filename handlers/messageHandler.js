@@ -1,3 +1,5 @@
+import { jokeHandler } from "./jokeHandler.js";
+
 export const messageHandler = (bot, msg)=> {
       const hiUa = "привіт";
       const hiEn = "hi";
@@ -5,6 +7,9 @@ export const messageHandler = (bot, msg)=> {
       const byeUa = "бувай";
       const byeEn = "bye";
       const byeDe = "tschüss";
+      const jokeUa = "жарт";
+      const jokeEn = "joke";  
+      const jokeDe = "witz";
 
       const messageText = msg.text.toString().toLowerCase();
 
@@ -22,5 +27,14 @@ export const messageHandler = (bot, msg)=> {
         bot.sendMessage(msg.chat.id, "Goodbye");
       } else if (messageText.indexOf(byeDe) === 0) {
         bot.sendMessage(msg.chat.id, "Auf Wiedersehen");
+      }
+
+      if(messageText[0] === jokeEn || jokeUa || jokeDe) {
+        const joke = jokeHandler(bot, msg);
+        if (joke) {
+          bot.sendMessage(msg.chat.id, joke);
+        } else {
+          bot.sendMessage(msg.chat.id, "Sorry, I couldn't find a joke.");
+        }
       }
     }
