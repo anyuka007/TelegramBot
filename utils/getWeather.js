@@ -56,7 +56,6 @@ export async function getWeather(city, language, firstName) {
           } now.`;
     return message;
   } catch (error) {
-    console.error("Error fetching weather data:", error);
-    throw error;
+    throw new Error("ERROR_FETCH");
   }
 }

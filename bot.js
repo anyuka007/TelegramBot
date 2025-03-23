@@ -8,6 +8,7 @@ import { pingServer } from "./utils/pingServer.js";
 import { startHandler } from "./handlers/startHandler.js";
 import { messageHandler } from "./handlers/messageHandler.js";
 import { jokeHandler } from "./handlers/jokeHandler.js";
+import { weatherHandler } from "./handlers/weatherHandler.js";
 
 /* export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
@@ -44,66 +45,9 @@ export const botInstance = () => {
 
     bot.onText(/\/joke/, (msg) => jokeHandler(bot, msg));
 
-    bot.onText(/\/weather (.+)/, async (msg, match) => {
-      // 'msg' is the received Message from Telegram
-      // 'match' is the result of executing the regexp above on the text content of the message
-      //console.log("msg: ", msg);
-      const chatId = msg.chat.id;
-      const city = match[1]; // the captured "whatever"
-      const language = msg.from.language_code; // &lang=${language};
-      const firstName = msg.from.first_name;
-
-      async function fetchData() {
-        try {
-          console.log(`retrieving weather in ${city}`);
-          const message = await getWeather(city, language, firstName);
-          await bot.sendMessage(chatId, message);
-          console.log(
-            `Message about the weather in ${city} sent to ${firstName}`
-          );
-        } catch (error) {
-          console.error("Error fetching weather data:", error);
-          const fetchErrorMessage = "I didn't find such a city";
-          await bot.sendMessage(chatId, fetchErrorMessage);
-        }
-      }
-
-      await fetchData();
-    });
-
-    bot.onText(/(погода|weather|wetter) (.+)/i, async (msg, match) => {
-      // 'msg' is the received Message from Telegram
-      // 'match' is the result of executing the regexp above on the text content
-      // of the message
-      // console.log("msg: ", msg);
-      const chatId = msg.chat.id;
-      const city = match[2]; // the captured "city"
-      // console.log("match: ", match);
-      // console.log("match[1]: ", match[1]);
-      const language =
-        match[1].toLowerCase() === "погода"
-          ? "uk"
-          : match[1].toLowerCase() === "wetter"
-          ? "de"
-          : "en"; // &lang=${language} msg.from.language_code;
-      const firstName = msg.from.first_name;
-
-      async function fetchData() {
-        try {
-          const message = await getWeather(city, language, firstName);
-          await bot.sendMessage(chatId, message);
-          console.log(
-            `Message about the weather in ${city} sent to ${firstName}, message.from.chat.id: ${msg.chat.id}`
-          );
-        } catch (error) {
-          console.error("Error fetching weather data:", error);
-          const fetchErrorMessage = "I didn't find such a city";
-          await bot.sendMessage(chatId, fetchErrorMessage);
-        }
-      }
-
-      await fetchData();
-    });
+    bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) =>
+      weatherHandler(bot, msg, match)
+    );
 
     bot.on("channel_post", (msg) => {
       const chatId = msg.chat.id;
@@ -145,62 +89,68 @@ export const botInstance = () => {
       // send back the matched "whatever" to the chat
       bot.sendMessage(chatId, resp);
     });
-    /*
-// Listen for any kind of message. There are different kinds of
-// messages.
-bot.on("message", (msg) => {
-    const chatId = msg.chat.id;
+   
+    cron.schedule(
+      "0 9 * * *",
+      async () => {
+        await pingServer();
+        const firstName = "Анюткa";
+        const chatId = process.env.CHAT_ID;
+        const greetingMessage = "Доброго ранку, моя люба! Як спалось?";
+        const weather = await getWeather("Оберхаузен", "uk", firstName);
+        bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
+        console.log("Scheduled message about the weather sent to ", firstName);
+      },
+      {
+        timezone: "Europe/Berlin",
+      }
+    );
 
-    // send a message to the chat acknowledging receipt of their message
-    bot.sendMessage(chatId, "Received your message");
-});
- */
+    cron.schedule(
+      "0 9 * * *",
+      async () => {
+        await pingServer();
+        const firstName = "Євген";
+        const chatId = process.env.CHAT_ID_IEV;
+        const greetingMessage = "Доброго ранку, сонце! Як спалось?";
+        const weather = await getWeather("Оберхаузен", "uk", firstName);
+        bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
+        console.log("Scheduled message about the weather sent to ", firstName);
+      },
+      {
+        timezone: "Europe/Berlin",
+      }
+    );
 
-    cron.schedule("0 9 * * *", async () => {
-      await pingServer()
-      const firstName = "Анюткa";
-      const chatId = process.env.CHAT_ID;
-      const greetingMessage = "Доброго ранку, моя люба! Як спалось?";
-      const weather = await getWeather("Оберхаузен", "uk", firstName);
-      bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
-      console.log("Scheduled message about the weather sent to ", firstName);
-    }, {
-        timezone: "Europe/Berlin"
-      });
+    cron.schedule(
+      "0 23 * * *",
+      async () => {
+        await pingServer();
+        const firstName = "Євген";
+        const chatId = process.env.CHAT_ID_IEV;
+        const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
+        bot.sendMessage(chatId, message);
+        console.log("Message-reminder sent to ", firstName);
+      },
+      {
+        timezone: "Europe/Berlin",
+      }
+    );
 
-    cron.schedule("0 9 * * *", async () => {
-        await pingServer()
-      const firstName = "Євген";
-      const chatId = process.env.CHAT_ID_IEV;
-      const greetingMessage = "Доброго ранку, сонце! Як спалось?";
-      const weather = await getWeather("Оберхаузен", "uk", firstName);
-      bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
-      console.log("Scheduled message about the weather sent to ", firstName);
-    }, {
-        timezone: "Europe/Berlin"
-      });
-
-    cron.schedule("0 23 * * *", async () => {
-        await pingServer()
-      const firstName = "Євген";
-      const chatId = process.env.CHAT_ID_IEV;
-      const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
-      bot.sendMessage(chatId, message);
-      console.log("Message-reminder sent to ", firstName);
-    }, {
-        timezone: "Europe/Berlin"
-      });
-
-    cron.schedule("0 23 * * *", async () => {
-        await pingServer()
-      const firstName = "Aннa";
-      const chatId = process.env.CHAT_ID;
-      const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
-      bot.sendMessage(chatId, message);
-      console.log("Message-reminder sent to ", firstName);
-    }, {
-        timezone: "Europe/Berlin"
-      });
+    cron.schedule(
+      "0 23 * * *",
+      async () => {
+        await pingServer();
+        const firstName = "Aннa";
+        const chatId = process.env.CHAT_ID;
+        const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
+        bot.sendMessage(chatId, message);
+        console.log("Message-reminder sent to ", firstName);
+      },
+      {
+        timezone: "Europe/Berlin",
+      }
+    );
   }
   return bot;
 };
