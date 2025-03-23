@@ -9,6 +9,7 @@ import { startHandler } from "./handlers/startHandler.js";
 import { messageHandler } from "./handlers/messageHandler.js";
 import { jokeHandler } from "./handlers/jokeHandler.js";
 import { weatherHandler } from "./handlers/weatherHandler.js";
+import { schedules } from "./schedules.js";
 
 /* export const bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true }); */
 
@@ -38,13 +39,18 @@ export const botInstance = () => {
       bot = new TelegramBot(process.env.TELEGRAM_BOT, { polling: true });
       console.log("development");
     }
+    // Handlers
 
+    // Start command
     bot.onText(/\/start/, (msg) => startHandler(bot, msg));
-
+    
+    // Message handler
     bot.on("message", (msg) => messageHandler(bot, msg));
 
+    // Joke handler
     bot.onText(/\/joke/, (msg) => jokeHandler(bot, msg));
 
+    // Weather handler
     bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) =>
       weatherHandler(bot, msg, match)
     );
@@ -77,7 +83,7 @@ export const botInstance = () => {
       }
     });
 
-    // Matches "/echo [whatever]"
+    // Repeats the message of user. Matches "/echo [whatever]"
     bot.onText(/\/echo (.+)/, (msg, match) => {
       // 'msg' is the received Message from Telegram
       // 'match' is the result of executing the regexp above on the text content
@@ -89,68 +95,9 @@ export const botInstance = () => {
       // send back the matched "whatever" to the chat
       bot.sendMessage(chatId, resp);
     });
-   
-    cron.schedule(
-      "0 9 * * *",
-      async () => {
-        await pingServer();
-        const firstName = "Анюткa";
-        const chatId = process.env.CHAT_ID;
-        const greetingMessage = "Доброго ранку, моя люба! Як спалось?";
-        const weather = await getWeather("Оберхаузен", "uk", firstName);
-        bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
-        console.log("Scheduled message about the weather sent to ", firstName);
-      },
-      {
-        timezone: "Europe/Berlin",
-      }
-    );
 
-    cron.schedule(
-      "0 9 * * *",
-      async () => {
-        await pingServer();
-        const firstName = "Євген";
-        const chatId = process.env.CHAT_ID_IEV;
-        const greetingMessage = "Доброго ранку, сонце! Як спалось?";
-        const weather = await getWeather("Оберхаузен", "uk", firstName);
-        bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
-        console.log("Scheduled message about the weather sent to ", firstName);
-      },
-      {
-        timezone: "Europe/Berlin",
-      }
-    );
-
-    cron.schedule(
-      "0 23 * * *",
-      async () => {
-        await pingServer();
-        const firstName = "Євген";
-        const chatId = process.env.CHAT_ID_IEV;
-        const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
-        bot.sendMessage(chatId, message);
-        console.log("Message-reminder sent to ", firstName);
-      },
-      {
-        timezone: "Europe/Berlin",
-      }
-    );
-
-    cron.schedule(
-      "0 23 * * *",
-      async () => {
-        await pingServer();
-        const firstName = "Aннa";
-        const chatId = process.env.CHAT_ID;
-        const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
-        bot.sendMessage(chatId, message);
-        console.log("Message-reminder sent to ", firstName);
-      },
-      {
-        timezone: "Europe/Berlin",
-      }
-    );
+   // Scheduled messages
+    schedules(bot);
   }
   return bot;
 };
