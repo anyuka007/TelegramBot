@@ -10,6 +10,7 @@ export async function getWeather(city, language, firstName) {
     const data = await response.json();
     const cityNameCountry = `${data.name}, ${data.sys.country}`;
     const temperature = data.main.temp.toFixed();
+    const feelsLike = data.main.feels_like.toFixed();
     const humidity = data.main.humidity;
     const description = data.weather[0].description;
 
@@ -43,16 +44,16 @@ export async function getWeather(city, language, firstName) {
     const message =
       language === "uk"
         ? `${firstName
-          }, зараз ${temperature}°C, ${description} у ${cityNameCountry}. Вологість повітря складає ${humidity}%. Схід сонечка о ${sunrise}, а захід о ${sunset}. Зараз у ${
+          }, зараз ${temperature}°C, відчувається як ${feelsLike}°C, ${description} у ${cityNameCountry}. Вологість повітря складає ${humidity}%. Схід сонечка о ${sunrise}, а захід о ${sunset}. Зараз у ${
             data.name
           } ${timeSearchedCity}.`
         : language === "de"
         ? `${firstName
-          }, es sind jetzt ${temperature}°C, ${description} in ${cityNameCountry}. Die Luftfeuchtigkeit beträgt ${humidity}%. Sonnenaufgang um ${sunrise} Uhr, Sonnenuntergang um ${sunset} Uhr. In ${
+          }, es sind jetzt ${temperature}°C, es fühlt sich wie ${feelsLike}°C an, ${description.toLowerCase()} in ${cityNameCountry}. Die Luftfeuchtigkeit beträgt ${humidity}%. Sonnenaufgang um ${sunrise} Uhr, Sonnenuntergang um ${sunset} Uhr. In ${
             data.name
           } ist es jetzt ${timeSearchedCity} Uhr.`
         : `${firstName
-          }, it is now ${temperature}°C, ${description} in ${cityNameCountry}. The air humidity is ${humidity}%. Sunrise at ${sunrise}, sunset at ${sunset}. It is ${timeSearchedCity} in ${
+          }, it is now ${temperature}°C, it feels like ${feelsLike}°C, ${description} in ${cityNameCountry}. The air humidity is ${humidity}%. Sunrise at ${sunrise}, sunset at ${sunset}. It is ${timeSearchedCity} in ${
             data.name
           } now.`;
     return message;
