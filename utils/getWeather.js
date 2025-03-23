@@ -8,7 +8,7 @@ export async function getWeather(city, language, firstName) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    const cityNameCountry = `${data.name}, ${data.sys.country}`;
+    const country = data.sys.country;
     const temperature = data.main.temp.toFixed();
     const feelsLike = data.main.feels_like.toFixed();
     const humidity = data.main.humidity;
@@ -44,17 +44,17 @@ export async function getWeather(city, language, firstName) {
     const message =
       language === "uk"
         ? `${firstName
-          }, зараз ${temperature}°C, відчувається як ${feelsLike}°C, ${description} у ${cityNameCountry}. Вологість повітря складає ${humidity}%. Схід сонечка о ${sunrise}, а захід о ${sunset}. Зараз у ${
-            data.name
+          }, зараз ${temperature}°C, відчувається як ${feelsLike}°C, ${description} у ${city}, ${country}.\nВологість повітря складає ${humidity}%.\nСхід сонечка о ${sunrise}, а захід о ${sunset}.\nЗараз у місті ${
+            city
           } ${timeSearchedCity}.`
         : language === "de"
         ? `${firstName
-          }, es sind jetzt ${temperature}°C, es fühlt sich wie ${feelsLike}°C an, ${description.toLowerCase()} in ${cityNameCountry}. Die Luftfeuchtigkeit beträgt ${humidity}%. Sonnenaufgang um ${sunrise} Uhr, Sonnenuntergang um ${sunset} Uhr. In ${
-            data.name
+          }, es sind jetzt ${temperature}°C, es fühlt sich wie ${feelsLike}°C an, ${description.toLowerCase()} in ${city}, ${country}.\nDie Luftfeuchtigkeit beträgt ${humidity}%.\nSonnenaufgang um ${sunrise} Uhr, Sonnenuntergang um ${sunset} Uhr.\nIn ${
+            city
           } ist es jetzt ${timeSearchedCity} Uhr.`
         : `${firstName
-          }, it is now ${temperature}°C, it feels like ${feelsLike}°C, ${description} in ${cityNameCountry}. The air humidity is ${humidity}%. Sunrise at ${sunrise}, sunset at ${sunset}. It is ${timeSearchedCity} in ${
-            data.name
+          }, it is now ${temperature}°C, it feels like ${feelsLike}°C, ${description} in ${city}, ${country}.\nThe air humidity is ${humidity}%.\nSunrise at ${sunrise}, sunset at ${sunset}.\nIt is ${timeSearchedCity} in ${
+            city
           } now.`;
     return message;
   } catch (error) {
