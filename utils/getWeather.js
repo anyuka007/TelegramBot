@@ -45,7 +45,7 @@ export async function getWeather(city, language) {
     });
     const message =
       language === "uk"
-        ? `Поточна погода у місті *${cityCapitalized}, ${country}*:\n\n*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Температура:* ${temperature}°C\n🤔 *Відчувається як:* ${feelsLike}°C\n💧 *Вологість:* ${humidity}%\n\n🌅 *Схід сонця:* ${sunrise}\n🌇*Захід сонця:* ${sunset}\n🕒*Час у місті:* ${timeSearchedCity}`   
+        ? `Поточна погода у місті *${cityCapitalized}, ${country}*:\n\n\*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Температура:* ${temperature}°C\n🤔 *Відчувається як:* ${feelsLike}°C\n💧 *Вологість:* ${humidity}%\n\n🌅 *Схід сонця:* ${sunrise}\n🌇 *Захід сонця:* ${sunset}\n🕒 *Час у місті:* ${timeSearchedCity}`   
         : language === "de"
         ? `Aktuelles Wetter in *${cityCapitalized}, ${country}*:\n\n*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Temperatur:* ${temperature}°C\n🤔 *Gefühlt wie:* ${feelsLike}°C.\n💧 *Luftfeuchtigkeit:* ${humidity}%.\n\n🌅 *Sonnenaufgang:* ${sunrise}\n🌇 *Sonnenuntergang:* ${sunset}.\n🕒 *Aktuelle Zeit:* ${timeSearchedCity}`
         : `Current weather in *${cityCapitalized}, ${country}*:\n\n*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Temperature:* ${temperature}°C\n🤔 *Feels like:* ${feelsLike}°C\n💧 *Humidity:* ${humidity}%\n\n🌅 *Sunrise:* ${sunrise}\n🌇 *Sunset:* ${sunset}\n🕒 *Current time:* ${timeSearchedCity}`;  
