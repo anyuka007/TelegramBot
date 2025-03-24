@@ -18,8 +18,8 @@ export const weatherHandler = async (bot, msg, match) => {
 
       async function fetchData() {
         try {
-          const message = await getWeather(city, language, firstName);
-          await bot.sendMessage(chatId, message);
+          const message = await getWeather(city, language);
+          await bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
           console.log(
             `Message about the weather in ${city} sent to ${firstName}, (chat.id: ${msg.chat.id})`
           );

@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 
-export async function getWeather(city, language, firstName) {
+export async function getWeather(city, language) {
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${process.env.KEY}&units=metric&lang=${language}`;
   try {
     const response = await fetch(url);
@@ -14,6 +14,7 @@ export async function getWeather(city, language, firstName) {
     const feelsLike = data.main.feels_like.toFixed();
     const humidity = data.main.humidity;
     const description = data.weather[0].description;
+    const weatherIcon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
     const currentTimezoneOffset = new Date().getTimezoneOffset();
     const searchTimezone = data.timezone / 60; // in sec
@@ -44,15 +45,10 @@ export async function getWeather(city, language, firstName) {
     });
     const message =
       language === "uk"
-        ? `${firstName
-          }, зараз ${temperature}°C, відчувається як ${feelsLike}°C, ${description} у ${cityCapitalized}, ${country}.\nВологість повітря складає ${humidity}%.\nСхід сонечка о ${sunrise}, а захід о ${sunset}.\nЗараз у місті ${cityCapitalized} ${timeSearchedCity}.`
+        ? `Поточна погода у місті *${cityCapitalized}, ${country}*:\n\n*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Температура:* ${temperature}°C\n🤔 *Відчувається як:* ${feelsLike}°C\n💧 *Вологість:* ${humidity}%\n\n🌅 *Схід сонця:* ${sunrise}\n🌇*Захід сонця:* ${sunset}\n🕒*Час у місті:* ${timeSearchedCity}`   
         : language === "de"
-        ? `${firstName
-          }, es sind jetzt ${temperature}°C, es fühlt sich wie ${feelsLike}°C an, ${description.toLowerCase()} in ${cityCapitalized}, ${country}.\nDie Luftfeuchtigkeit beträgt ${humidity}%.\nSonnenaufgang um ${sunrise} Uhr, Sonnenuntergang um ${sunset} Uhr.\nIn ${
-            cityCapitalized
-          } ist es jetzt ${timeSearchedCity} Uhr.`
-        : `${firstName
-          }, it is now ${temperature}°C, it feels like ${feelsLike}°C, ${description} in ${cityCapitalized}, ${country}.\nThe air humidity is ${humidity}%.\nSunrise at ${sunrise}, sunset at ${sunset}.\nIt is ${timeSearchedCity} in ${cityCapitalized} now.`;
+        ? `Aktuelles Wetter in *${cityCapitalized}, ${country}*:\n\n*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Temperatur:* ${temperature}°C\n🤔 *Gefühlt wie:* ${feelsLike}°C.\n💧 *Luftfeuchtigkeit:* ${humidity}%.\n\n🌅 *Sonnenaufgang:* ${sunrise}\n🌇 *Sonnenuntergang:* ${sunset}.\n🕒 *Aktuelle Zeit:* ${timeSearchedCity}`
+        : `Current weather in *${cityCapitalized}, ${country}*:\n\n*${description[0].toUpperCase()+description.slice(1)}*\n🌡️ *Temperature:* ${temperature}°C\n🤔 *Feels like:* ${feelsLike}°C\n💧 *Humidity:* ${humidity}%\n\n🌅 *Sunrise:* ${sunrise}\n🌇 *Sunset:* ${sunset}\n🕒 *Current time:* ${timeSearchedCity}`;  
     return message;
   } catch (error) {
     throw new Error("ERROR_FETCH");
