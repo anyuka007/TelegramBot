@@ -1,10 +1,10 @@
 export const greetingMessage = (language, firstName) => {
     switch (language) {
         case "uk":
-          return `Привіт, <b>${firstName}</b>! Я бот, який може показати тобі погоду. Напиши <i>погода</i> та <i>назву міста</i>, де ти хочеш дізнатися погоду. Наприклад, <i>погода Львів</i>. Якщо ти хочеш почути жарт, напиши слово <i>жарт</i> або обери команду <i>/joke</i> в меню. Аби привітатись, напиши <i>привіт</i>. Якщо ти хочеш закінчити спілкування, напиши <i>бувай</i>.`;
-        case "de":
-          return `Hallo, <b>${firstName}</b>! Ich bin ein Bot, der dir das Wetter anzeigen kann. Schreibe <i>Wetter</i> und den <i>Namen der Stadt</i>, über die du das Wetter erfahren möchtest. Zum Beispiel <i>Wetter Berlin</i>. Wenn du einen Witz hören möchtest, schreibe <i>witz</i> oder wähle <i>/joke</i> im Menü. Wenn du ein Gespräch beginnen möchtest, schreibe <i>hallo</i>. Wenn du das Gespräch beenden möchtest, schreibe <i>tschüss</i>.`;
-        default:
-          return `Hello, <b>${firstName}</b>! I'm a bot that can show you the weather. Write <i>weather</i> and the <i>name of the city</i> you want to know the weather for. For example, <i>weather London</i>. If you want to hear a joke, write <i>joke</i> or select <i>/joke</i> in the menu. If you want to start a conversation, write <i>hi</i>. If you want to end the conversation, write <i>bye</i>.`;
+        return `Привіт, *${firstName}*! Я бот, який може показати тобі погоду і не тільки.\n🌤️ Напиши *погода* та *назву міста*, де ти хочеш дізнатися погоду. Наприклад, *погода Львів*.\n🤣 Якщо ти хочеш почути жарт, напиши слово *жарт* або обери команду *\/joke* в меню.\n👋 Аби привітатись, напиши *привіт*. Якщо ти хочеш закінчити спілкування, напиши *бувай*.`;
+      case "de":
+        return `Hallo, *${firstName}*! Ich bin ein Bot, der dir das Wetter anzeigen kann und mehr.\n🌤️ Schreibe *Wetter* und den *Namen der Stadt*, über die du das Wetter erfahren möchtest. Zum Beispiel *Wetter Berlin*.\n🤣 Wenn du einen Witz hören möchtest, schreibe *witz* oder wähle *\/joke* im Menü.\n👋 Wenn du ein Gespräch beginnen möchtest, schreibe *hallo*. Wenn du das Gespräch beenden möchtest, schreibe *tschüss*.`;
+      default:
+        return `Hello, *${firstName}*! I'm a bot that can show you the weather and more.\n🌤️ Write *weather* and the *name of the city* you want to know the weather for. For example, *weather London*.\n🤣 If you want to hear a joke, write *joke* or select *\/joke* in the menu.\n👋 If you want to start a conversation, write *hi*. If you want to end the conversation, write *bye*.`;
       }
     }
