@@ -6,6 +6,6 @@ export const startHandler = (bot, msg) => {
     const firstName = msg.from.first_name;
     const message = greetingMessage(language, firstName);
     
-    bot.sendMessage(chatId, message, { parse_mode: "HTML" });
+    bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
     console.log("Start message sent to ", firstName);
   }
