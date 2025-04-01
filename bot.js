@@ -41,7 +41,8 @@ export const botInstance = () => {
     bot.on("message", (msg) => messageHandler(bot, msg));
 
     // Weather handler
-    bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) =>
+    // (?:\s+(.+))?: Matches one or more spaces (\s+) followed by any text (.+), capturing the text as the city name
+    bot.onText(/(погода|weather|wetter)(?:\s+(.+))?/i, (msg, match) =>
       weatherHandler(bot, msg, match)
     );
 
