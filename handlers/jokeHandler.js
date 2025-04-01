@@ -11,7 +11,7 @@ export const jokeHandler = (bot, msg, lang) => {
   } else {
       language = lang;
     }
-  console.log("language: ", language);
+  //console.log("language: ", language);
 
   const jokesArray = jokes[language] || jokes.en;
   const randomJoke = jokesArray[Math.floor(Math.random() * jokesArray.length)];
