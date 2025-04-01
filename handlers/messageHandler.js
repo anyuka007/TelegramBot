@@ -22,9 +22,9 @@ export const messageHandler = (bot, msg) => {
   }
 
   const { action, language } = getActionAndLanguage(messageText, keywords);
-  console.log("action: ", action);
-  console.log("language: ", language);
-  console.log("messageText: ", messageText);
+  // console.log("action: ", action);
+  // console.log("language: ", language);
+  // console.log("messageText: ", messageText);
 
   if (action === "start") {
     const lan = language || systemLanguage;
