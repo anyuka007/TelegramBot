@@ -22,7 +22,7 @@ export const keywords = {
     },
     weather: {
       uk: ["погода", "погоду", "погодка"],
-      de: ["wetter", "wetterbericht", "wettervorhersage"],
+      de: [ "wetterbericht", "wettervorhersage", "wetter",],
       en: ["weather", "forecast"],
     },
     thanks: {
