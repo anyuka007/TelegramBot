@@ -1,28 +1,107 @@
-/* export const activeListeningPhrases = [
-    "Та ти що, так цікаво!",
-    "Серйозно? Це дуже цікаво!",
-    "Невже? Розкажи більше!",
-    "Ого, це щось новеньке!",
-    "Вау, це вражає!",
-    "Нічого собі, це круто!",
-    "Це неймовірно!",
-    "Правда? Це захоплююче!",
-    "Це дуже цікаво, продовжуй!",
-    "Оце так, неочікувано!",
-]; */
 
-export const activeListeningPhrases = [
-    "Wirklich? Das ist interessant!",
-    "Ernsthaft? Das ist sehr spannend!",
-    "Echt? Erzähl mir mehr!",
-    "Wow, das ist etwas Neues!",
-    "Das ist beeindruckend!",
-    "Wirklich? Das ist cool!",
-    "Das ist unglaublich!",
-    "Wirklich? Das ist faszinierend!",
-    "Das ist sehr interessant, erzähl weiter!",
-    "Das ist unerwartet!",
-];
+export const keywords = {
+    start: {
+      uk: ["старт", "що робити", "що ти можеш"],
+      de: ["was tun", "was kannst du"],
+      en: ["start", "/start", "what to do", "what can you do"],
+    },
+    greetings: {
+      uk: ["привіт", "добрий день", "доброго ранку", "здоровенькі були"],
+      de: ["hallo", "guten tag", "guten morgen", "hallöchen"],
+      en: ["hi", "hello", "good morning"],
+    },
+    goodbyes: {
+      uk: ["бувай", "до побачення", "на все добре", "пока"],
+      de: ["tschüss", "auf wiedersehen", "mach's gut", "bis bald", "ciao"],
+      en: ["bye", "goodbye", "see you later"],
+    },
+    jokes: {
+      uk: ["жарт", "жартувати", "жарти", "розсмішити"],
+      de: ["witz", "witzig", "witzchen"],
+      en: ["joke", "/joke", "joking", "jokes"],
+    },
+    weather: {
+      uk: ["погода", "погоду", "погодка"],
+      de: ["wetter", "wetterbericht", "wettervorhersage"],
+      en: ["weather", "forecast", "weather report"],
+    },
+    thanks: {
+      uk: ["дякую", "спасибі", "вдячний", "дякі"],
+      de: ["danke", "vielen dank", "dankeschön"],
+      en: ["thank you", "thanks", "appreciate it"],
+    },
+  };
+
+  export const answers = {
+    greetings: {
+      uk: [
+        "👋 Привіт, мій любий друже!",
+        "🤗 Привіт, радий тебе тут бачити!",
+        "😊 Здоровенькі були!",
+      ],
+      de: [
+        "👋 Hallo, mein lieber Freund!",
+        "🤗 Guten Tag! Schön, dich zu sehen!",
+        "🤗 Hallöchen!",
+      ],
+      en: [
+        "👋 Hello, my dear friend!",
+        "😊 Hey, nice to see you!",
+        "👋 Hi there!",
+      ],
+    },
+    goodbyes: {
+      uk: ["👋 До зустрічі!", "👋 На все добре!", "🤗Бувай!"],
+      de: [
+        "👋 Auf Wiedersehen!",
+        "👋 Mach's gut!",
+        "👋 Tschüss!",
+        "🤗 Bis bald!",
+        "🤗 Ciao!",
+      ],
+      en: ["👋 Goodbye!", "🤗 See you later!", "🤗 Bye for now!"],
+    },
+    thanks: {
+      uk: [
+        "😊 Будь ласка! Завжди радий допомогти!",
+        "😊 Нема за що!",
+        "😊 Радий, що зміг допомогти!",
+      ],
+      de: ["😊 Gern geschehen!", "Kein Problem! 😊", "Immer gerne! 😊"],
+      en: ["😊 You're welcome!", "No problem! 😊", "Glad I could help! 😊"],
+    },
+    jokes: {
+      uk: ["😔 Вибач, я не можу розповісти жарт. Спробуй ще раз."],
+      de: [
+        "😔 Entschuldigung, ich kann keinen Witz erzählen. Versuch es noch einmal.",
+      ],
+      en: ["😔 Sorry, I can't tell a joke. Try again."],
+    },
+    unknown: {
+      uk: [
+        "❓ На жаль, я не зрозумів. Спробуй ще раз.",
+        "🤔 Вибач, я не зрозумів. Спробуй ще раз.",
+        "😔 На жаль, я не можу допомогти з цим. Але я залюбки допоможу тобі дізнатись погоду або розповім жарт. Напиши 'погода місто' або 'жарт'.",
+        "😹 Схоже, ніби в тебе кіт пробігся по клавіатурі, я нічого не зрозумів. Напиши 'погода місто' або 'жарт'. ",
+        "❓ Я можу допомогти тобі дізнатись погоду або розповісти жарт. Напиши 'погода місто' або 'жарт'.",
+      ],
+      de: [
+        "❓ Entschuldigung, ich habe das nicht verstanden. Bitte versuche es erneut.",
+        "🤔 Tut mir leid, ich habe das nicht verstanden. Bitte versuche es erneut.",
+        "😔 Entschuldigung, ich kann dabei nicht helfen. Ich kann dir das Wetter anzeigen oder einen Witz erzählen. Schreibe 'wetter [stadt]' oder 'witz'.",
+        "😹 Es scheint, als hätte eine Katze über deine Tastatur gelaufen. Ich habe nichts verstanden. Ich kann dir das Wetter anzeigen oder einen Witz erzählen. Schreibe 'wetter [stadt]' oder 'witz'.",
+        "🌦️ Ich kann dir das Wetter anzeigen oder einen Witz erzählen. Schreibe 'wetter [stadt]' oder 'witz'.",
+      ],
+      en: [
+        "❓ Sorry, I didn't understand that. Please try again.",
+        "😔 Hmm, I didn't get that. Can you try again?",
+        "😕 Sorry, I can't help with that. Try something else. 🌦️ I can assist you with the weather or tell you a joke. Type 'weather city' or 'joke'.",
+        "🤷 I didn't catch that. 🌦️ I can assist you with the weather or tell you a joke. Type 'weather city' or 'joke'.",
+        "😅 Oops, I didn't understand. Please try again. 🌦️ Type 'weather city' or 'joke'.",
+        "🌦️ I can assist you with the weather or tell you a joke. Type 'weather city' or 'joke'.",
+      ],
+    },
+  };
 
 export const jokes = {
     en: [

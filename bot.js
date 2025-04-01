@@ -38,13 +38,13 @@ export const botInstance = () => {
     // Handlers
 
     // Start command
-    bot.onText(/\/start/, (msg) => startHandler(bot, msg));
+    //bot.onText(/\/start/, (msg) => startHandler(bot, msg));
     
     // Message handler
     bot.on("message", (msg) => messageHandler(bot, msg));
 
     // Joke handler
-    bot.onText(/\/joke/, (msg) => jokeHandler(bot, msg));
+    //bot.onText(/\/joke/, (msg) => jokeHandler(bot, msg));
 
     // Weather handler
     bot.onText(/(погода|weather|wetter) (.+)/i, (msg, match) =>
