@@ -1,4 +1,6 @@
+import { getActionAndLanguage } from "../utils/getActionLanguage.js";
 import { getWeather } from "../utils/getWeather.js";
+import { answers, keywords } from "../variables.js";
 
 export const weatherHandler = async (bot, msg, match) => {
 
@@ -10,22 +12,15 @@ export const weatherHandler = async (bot, msg, match) => {
   //console.log("city: ", city);
   //console.log("match: ", match);
   
-  const language =
-    match[1].toLowerCase() === "погода"
-      ? "uk"
-      : match[1].toLowerCase() === "wetter"
-      ? "de"
-      : "en"; // &lang=${language} msg.from.language_code;
-  
+  const messageText = msg.text.toString().toLowerCase();
+  const systemLanguage = msg.from.language_code;
+
+  const { action, language } = getActionAndLanguage(messageText, keywords, systemLanguage);
+    
   // Check if the city name is provided
   if (!city) {
-    const noCityMessage =
-      language === "uk"
-        ? "❓ Будь ласка, вкажіть назву міста після слова 'погода'. Наприклад: 'погода Львів'."
-        : language === "de"
-        ? "❓ Bitte geben Sie den Namen der Stadt nach dem Wort 'wetter' an. Zum Beispiel: 'wetter Berlin'."
-        : "❓ Please provide the name of the city after the word 'weather'. For example: 'weather London'.";
-    await bot.sendMessage(chatId, noCityMessage, { parse_mode: "Markdown" });
+    const noCityMessage = answers.weather[language][0]
+    await bot.sendMessage(chatId, noCityMessage);
     console.error("City name not provided.");
     return;
   }
@@ -45,12 +40,7 @@ export const weatherHandler = async (bot, msg, match) => {
         console.error("Error sending message:", error.message);
       } else {
         console.error("Error fetching weather data:", error.message);
-        const fetchErrorMessage =
-          language === "uk"
-            ? "🔍 Я не знайшов такого міста.\nСпробуй ще раз."
-            : language === "de"
-            ? "🔍 Ich habe eine solche Stadt nicht gefunden.\nVersuche es noch einmal."
-            : "🔍 I didn't find such a city.\nTry again.";
+        const fetchErrorMessage = answers.weather[language][1];
         await bot.sendMessage(chatId, fetchErrorMessage, {
           parse_mode: "Markdown"
         });

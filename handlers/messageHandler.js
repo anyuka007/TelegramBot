@@ -1,6 +1,7 @@
 import { jokeHandler } from "./jokeHandler.js";
 import { startHandler } from "./startHandler.js";
 import { answers, keywords } from "../variables.js";
+import { getActionAndLanguage } from "../utils/getActionLanguage.js";
 
 export const messageHandler = (bot, msg) => {
   
@@ -9,19 +10,7 @@ export const messageHandler = (bot, msg) => {
   const messageText = msg.text.toString().toLowerCase();
   const systemLanguage = msg.from.language_code;
 
-  function getActionAndLanguage(messageText, keywords) {
-    for (const [action, languages] of Object.entries(keywords)) {
-      for (const [language, words] of Object.entries(languages)) {
-        if (words.some((word) => messageText.startsWith(word))) {
-          return { action, language };
-        }
-      }
-    }
-    // If no action is found, return "unknown"
-    return { action: "unknown", language: systemLanguage };
-  }
-
-  const { action, language } = getActionAndLanguage(messageText, keywords);
+  const { action, language } = getActionAndLanguage(messageText, keywords, systemLanguage);
   // console.log("action: ", action);
   // console.log("language: ", language);
   // console.log("messageText: ", messageText);

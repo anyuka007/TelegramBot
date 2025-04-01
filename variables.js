@@ -77,6 +77,12 @@ export const keywords = {
       ],
       en: ["😔 Sorry, I can't tell a joke. Try again."],
     },
+    weather: {  
+        uk: ["❓ Будь ласка, вкажіть назву міста після слова 'погода'. Наприклад: 'погода Львів'.", "🔍 Я не знайшов такого міста. Спробуй ще раз."],
+    de: [
+        "❓ Bitte geben Sie den Namen der Stadt nach dem Wort 'wetter' an. Zum Beispiel: 'wetter Berlin'.", "🔍 Ich habe eine solche Stadt nicht gefunden. Versuche es noch einmal."],
+    en: [
+        "❓ Please provide the name of the city after the word 'weather'. For example: 'weather London'.", "🔍 I didn't find such a city. Try again."]},
     unknown: {
       uk: [
         "❓ На жаль, я не зрозумів. Спробуй ще раз.",
