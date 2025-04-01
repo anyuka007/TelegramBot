@@ -26,8 +26,7 @@ export const botInstance = () => {
     const weatherKeywords = Object.values(keywords.weather)
       .flat() // combines all arrays into one
       .join("|"); // joins the array elements into a string separated by "|"
-    const weatherRegex = new RegExp(`(${weatherKeywords})(?:\\s+(.+))?`, "i");
-
+      const weatherRegex = new RegExp(`(${weatherKeywords}) (\\s*(.+))?`, "i");
     // (?:\s+(.+))?: Matches one or more spaces (\s+) followed by any text (.+), capturing the text as the city name
     bot.onText(weatherRegex, (msg, match) => weatherHandler(bot, msg, match));
 
