@@ -1,58 +1,58 @@
 import { jokeHandler } from "./jokeHandler.js";
+import { startHandler } from "./startHandler.js";
+import { answers, keywords } from "../variables.js";
 
 export const messageHandler = (bot, msg) => {
-  const hiUa = "привіт";
-  const hiEn = "hi";
-  const hiDe = "hallo";
-  const byeUa = "бувай";
-  const byeEn = "bye";
-  const byeDe = "tschüss";
-  const jokeUa = "жарт";
-  const jokeEn = "joke";
-  const jokeDe = "witz";
+  
+  const randomIndex = (arr) => Math.floor(Math.random() * arr.length);
 
   const messageText = msg.text.toString().toLowerCase();
+  const systemLanguage = msg.from.language_code;
 
-  // *** Check if the message is a command
-  if (messageText.startsWith("/")) {
-    // Handle the /joke command
-    if (messageText.startsWith("/joke")) {
-      const joke = jokeHandler(bot, msg);
-      if (joke) {
-        bot.sendMessage(msg.chat.id, joke);
-      } else {
-        bot.sendMessage(msg.chat.id, "Sorry, I couldn't find a joke.");
+  function getActionAndLanguage(messageText, keywords) {
+    for (const [action, languages] of Object.entries(keywords)) {
+      for (const [language, words] of Object.entries(languages)) {
+        if (words.some((word) => messageText.startsWith(word))) {
+          return { action, language };
+        }
       }
     }
-  } else {
-    // *** Handle non-command messages
+    // If no action is found, return "unknown"
+    return { action: "unknown", language: systemLanguage };
+  }
 
-    // Check for greeting messages
-    if (messageText.indexOf(hiUa) === 0) {
-      bot.sendMessage(msg.chat.id, "Привіт, мій любий друже");
-    } else if (messageText.indexOf(hiEn) === 0) {
-      bot.sendMessage(msg.chat.id, "Hello, my dear friend");
-    } else if (messageText.indexOf(hiDe) === 0) {
-      bot.sendMessage(msg.chat.id, "Hallo, mein lieber Freund");
-    }
+  const { action, language } = getActionAndLanguage(messageText, keywords);
+  console.log("action: ", action);
+  console.log("language: ", language);
+  console.log("messageText: ", messageText);
 
-    // Check for goodbye messages
-    if (messageText.indexOf(byeUa) === 0) {
-      bot.sendMessage(msg.chat.id, "До зустрічі");
-    } else if (messageText.indexOf(byeEn) === 0) {
-      bot.sendMessage(msg.chat.id, "Goodbye");
-    } else if (messageText.indexOf(byeDe) === 0) {
-      bot.sendMessage(msg.chat.id, "Auf Wiedersehen");
-    }
+  if (action === "start") {
+    const lan = language || systemLanguage;
+    startHandler(bot, msg, language);} 
 
-    // Check for jokes
-    if (messageText.split(" ")[0] === jokeEn || messageText.split(" ")[0] === jokeUa || messageText.split(" ")[0] === jokeDe) {
-      const joke = jokeHandler(bot, msg);
-      if (joke) {
-        bot.sendMessage(msg.chat.id, joke);
-      } else {
-        bot.sendMessage(msg.chat.id, "Sorry, I couldn't find a joke.");
-      }
+  else if (action === "greetings") {
+    const greetings = answers.greetings[language] || ["Hello!"];
+    const greeting = greetings[randomIndex(greetings)];
+    bot.sendMessage(msg.chat.id, greeting);
+  } else if (action === "goodbyes") {
+    const goodbyes = answers.goodbyes[language] || ["Goodbye!"];
+    const goodbye = goodbyes[randomIndex(goodbyes)];
+    bot.sendMessage(msg.chat.id, goodbye);
+  } else if (action === "thanks") {
+    const thanks = answers.thanks[language] || ["You're welcome!"];
+    const thankYouMessage = thanks[randomIndex(thanks)];
+    bot.sendMessage(msg.chat.id, thankYouMessage);
+  } else if (action === "jokes") {
+    const joke = jokeHandler(bot, msg, language);
+    if (joke) {
+      bot.sendMessage(msg.chat.id, joke);
+    } else {
+      bot.sendMessage(msg.chat.id, answers.jokes[language][0]);
     }
+  } else if (action === "unknown") {
+    randomIndex(answers.unknown[language]);
+    const unknownMessage =
+      answers.unknown[language][randomIndex(answers.unknown[language])];
+    bot.sendMessage(msg.chat.id, unknownMessage);
   }
 };
