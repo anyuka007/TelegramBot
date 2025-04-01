@@ -6,11 +6,11 @@ export const weatherHandler = async (bot, msg, match) => {
 
   // 'msg' is the received Message from Telegram
   // 'match' is the result of executing the regexp above on the text content of the message
-  console.log("msg: ", msg);
+  // console.log("msg: ", msg);
   const chatId = msg.chat.id;
   const city = match[2]?.trim(); // the captured "city"
-  console.log("city: ", city);
-  console.log("match: ", match);
+  // console.log("city: ", city);
+  // console.log("match: ", match);
   
   const messageText = msg.text.toString().toLowerCase();
   const systemLanguage = msg.from.language_code;
