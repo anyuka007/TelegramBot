@@ -2,7 +2,9 @@
 #### EN:
 A Telegram bot that offers various functions, including sending greeting messages, telling jokes, and retrieving weather information. The bot uses the `node-telegram-bot-api` library and is written in JavaScript.
 
-![image](https://github.com/user-attachments/assets/d48b49f6-61e7-42ca-b33c-1d96479dca31)
+<img src= "https://github.com/user-attachments/assets/4eaaa9c1-c56c-431c-a844-94f2b7d02b1e" width="300" />
+<img src= "https://github.com/user-attachments/assets/d48b49f6-61e7-42ca-b33c-1d96479dca31" width="300" />
+
 
 
 ## Features
