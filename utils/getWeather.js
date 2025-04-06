@@ -9,7 +9,7 @@ export async function getWeather(city, language) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     const data = await response.json();
-    console.log("data: ", data);
+    //console.log("data: ", data);
     const cityCapitalized = city[0].toUpperCase() + city.slice(1);
     const country = data.sys.country;
     const temperature = data.main.temp.toFixed();
@@ -26,8 +26,8 @@ export async function getWeather(city, language) {
     : gusts < 10
     ? "🌬️" // middle
     : gusts < 20
-    ? "🌬️🍃🚩" // strong
-    : "🌪️⚠️" // very strong
+    ? "🚩" // strong
+    : "🌪️" // very strong
   : null;
     //const weatherIcon = `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
 
