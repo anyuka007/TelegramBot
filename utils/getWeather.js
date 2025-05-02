@@ -54,14 +54,14 @@ export async function getWeather(city, language) {
       hour12: false,
     });
 
-    const daylight = new Date(
-      data.sys.sunset * 1000 - data.sys.sunrise * 1000 +
-        differenceTimezone * 60 * 1000
-    ).toLocaleTimeString([], {  
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
+
+    const daylightMs = (data.sys.sunset - data.sys.sunrise) * 1000;
+    const daylightHours = Math.floor(daylightMs / (1000 * 60 * 60));
+    const daylightMinutes = Math.floor((daylightMs % (1000 * 60 * 60)) / (1000 * 60));
+
+    const daylight = `${String(daylightHours).padStart(2, '0')}:${String(daylightMinutes).padStart(2, '0')}`;
+    
+
     const timeSearchedCity = newTime.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
