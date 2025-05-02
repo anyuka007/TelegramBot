@@ -53,6 +53,15 @@ export async function getWeather(city, language) {
       minute: "2-digit",
       hour12: false,
     });
+
+    const daylight = new Date(
+      data.sys.sunset * 1000 - data.sys.sunrise * 1000 +
+        differenceTimezone * 60 * 1000
+    ).toLocaleTimeString([], {  
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    });
     const timeSearchedCity = newTime.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
@@ -64,18 +73,18 @@ export async function getWeather(city, language) {
             description[0].toUpperCase() + description.slice(1)
           }*\n🌡️ *Температура:* ${temperature}°C\n🤔 *Відчувається як:* ${feelsLike}°C\n💧 *Вологість:* ${humidity}%\n💨 *Швидкість вітру*: ${windSpeed} м/с${
             gusts ? `\n${gustsEmoji} *Пориви вітру:* до ${gusts} м/с` : ""
-          }\n\n🌅 *Схід сонця:* ${sunrise}\n🌇 *Захід сонця:* ${sunset}\n🕒 *Час у місті:* ${timeSearchedCity}`
+          }\n\n🌅 *Схід сонця:* ${sunrise}\n🌇 *Захід сонця:* ${sunset}\n⏳ *Тривалість дня:* ${daylight}\n🕒 *Час у місті:* ${timeSearchedCity}`
         : language === "de"
         ? `Aktuelles Wetter in *${cityCapitalized}, ${country}*:\n\n*${descriptionIcon} ${
             description[0].toUpperCase() + description.slice(1)
           }*\n🌡️ *Temperatur:* ${temperature}°C\n🤔 *Gefühlt wie:* ${feelsLike}°C\n💧 *Luftfeuchtigkeit:* ${humidity}%\n💨 *Windgeschwindigkeit*: ${windSpeed} m/s${
             gusts ? `\n${gustsEmoji} *Windböen:* bis zu ${gusts} m/s` : ""
-          }\n\n🌅 *Sonnenaufgang:* ${sunrise}\n🌇 *Sonnenuntergang:* ${sunset}\n🕒 *Aktuelle Zeit:* ${timeSearchedCity}`
+          }\n\n🌅 *Sonnenaufgang:* ${sunrise}\n🌇 *Sonnenuntergang:* ${sunset}\n⏳ *Tageslichtdauer:* ${daylight}\n🕒 *Aktuelle Zeit:* ${timeSearchedCity}`
         : `Current weather in *${cityCapitalized}, ${country}*:\n\n*${descriptionIcon} ${
             description[0].toUpperCase() + description.slice(1)
           }*\n🌡️ *Temperature:* ${temperature}°C\n🤔 *Feels like:* ${feelsLike}°C\n💧 *Humidity:* ${humidity}%\n💨 *Wind speed*: ${windSpeed} m/s${
             gusts ? `\n${gustsEmoji} *Wind gusts:* up to ${gusts} m/s` : ""
-          }\n\n🌅 *Sunrise:* ${sunrise}\n🌇 *Sunset:* ${sunset}\n🕒 *Current time:* ${timeSearchedCity}`;
+          }\n\n🌅 *Sunrise:* ${sunrise}\n🌇 *Sunset:* ${sunset}\n⏳ *Daylight duration:* ${daylight}\n🕒 *Current time:* ${timeSearchedCity}`;
     return message;
   } catch (error) {
     throw new Error("ERROR_FETCH");
