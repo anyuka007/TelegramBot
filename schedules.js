@@ -12,7 +12,9 @@ export const schedules = (bot) => {
           const chatId = process.env.CHAT_ID;
           const greetingMessage = "Доброго ранку, моя люба! Як спалось?";
           const weather = await getWeather("Оберхаузен", "uk", firstName);
-          bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
+          bot.sendMessage(chatId, `${greetingMessage} \n${weather}`, {
+            parse_mode: "Markdown",
+          });
           console.log("Scheduled message about the weather sent to ", firstName);
         },
         {
@@ -28,7 +30,9 @@ export const schedules = (bot) => {
           const chatId = process.env.CHAT_ID_IEV;
           const greetingMessage = "Доброго ранку, сонце! Як спалось?";
           const weather = await getWeather("Оберхаузен", "uk", firstName);
-          bot.sendMessage(chatId, `${greetingMessage} \n${weather}`);
+          bot.sendMessage(chatId, `${greetingMessage} \n${weather}`, {
+            parse_mode: "Markdown",
+          });
           console.log("Scheduled message about the weather sent to ", firstName);
         },
         {
@@ -43,7 +47,9 @@ export const schedules = (bot) => {
           const firstName = "Євген";
           const chatId = process.env.CHAT_ID_IEV;
           const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
-          bot.sendMessage(chatId, message);
+          bot.sendMessage(chatId, message, {
+            parse_mode: "Markdown",
+          });
           console.log("Message-reminder sent to ", firstName);
         },
         {
@@ -58,7 +64,9 @@ export const schedules = (bot) => {
           const firstName = "Aннa";
           const chatId = process.env.CHAT_ID;
           const message = `${firstName}, вже пізня година. Може спати? Що скажеш?`;
-          bot.sendMessage(chatId, message);
+          bot.sendMessage(chatId, message, {
+            parse_mode: "Markdown",
+          }); 
           console.log("Message-reminder sent to ", firstName);
         },
         {

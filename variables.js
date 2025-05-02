@@ -1,7 +1,7 @@
 
 export const keywords = {
     start: {
-      uk: ["старт", "що робити", "що ти можеш"],
+      uk: ["старт", "що робити", "що ти можеш", "що ти вмієш"],
       de: ["was tun", "was kannst du"],
       en: ["start", "/start", "what to do", "what can you do"],
     },
@@ -16,7 +16,7 @@ export const keywords = {
       en: ["bye", "goodbye", "see you later"],
     },
     jokes: {
-      uk: ["жарт", "жартувати", "жарти", "розсмішити"],
+      uk: ["жарт", "жартувати", "жарти", "розсмішити", "пожартуй", "розсміши"],
       de: ["witz", "witzig", "witzchen"],
       en: ["joke", "/joke", "joking", "jokes"],
     },
