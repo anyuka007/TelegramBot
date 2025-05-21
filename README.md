@@ -23,41 +23,6 @@ A Telegram bot that offers various functions, including sending greeting message
 - `hi`, `hallo`, `привіт` or ``joke` or `witz` or `жарт`bye`, `tschüss`, `бувай`: Greets the user and says goodbye in English, German or Ukrainian.
 -  tells jokes in English, German or Ukrainian.
 
-## Installation
-
-1. Clone the repository:
-    ```sh
-    git clone <repository-url>
-    ```
-2. Navigate to the project directory:
-    ```sh
-    cd TelegramBot
-    ```
-3. Install the dependencies:
-    ```sh
-    npm install
-    ```
-
-## Configuration
-
-1. Create a [.env](http://_vscodecontentref_/0) file in the root directory of the project and add your Telegram bot API and OpenWeatherMap API keys:
-    ```env
-    TELEGRAM_BOT=<your-telegram-bot-api-key>
-    KEY=<your-openweathermap-api-key>
-    APP_URL=<your-app-url>
-    PORT=3000
-    NODE_ENV=development
-    CHAT_ID=<your-chat-id>
-    CHAT_ID_IEV=<your-another-chat-id(iev)>
-    ```
-
-## Usage
-
-Start the bot:
-```sh
-node index.js
-```
-
 
 #### DE: 
 Ein Telegram-Bot, der verschiedene Funktionen bietet, darunter das Senden von Begrüßungsnachrichten, das Erzählen von Witzen und das Abrufen von Wetterinformationen. Der Bot verwendet die node-telegram-bot-api-Bibliothek und ist in JavaScript geschrieben.
